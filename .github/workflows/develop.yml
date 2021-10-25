@@ -1,8 +1,8 @@
-name: Production
+name: Develop
 
 on:
-  push:
-    branches: [ master ]
+  pull_request:
+    branches: [ develop ]
 
 jobs:
   build:
@@ -15,6 +15,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
@@ -26,19 +27,11 @@ jobs:
     
     - name: "Run applications tests"
       run: npm test
-
-    - name: "Deploy"
-      uses: serverless/github-action@master
-      with:
-        args: deploy --stage production
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_KEY }}
-
-    - name: notify progress
+      
+    - name: "Notify discord"
       if: always()
       uses: appleboy/discord-action@master
       with:
         webhook_id: ${{ secrets.WEBHOOK_ID }}
         webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
-        message: The deploy environment staging executed ${{ job.status }}.
+        message: The application tests executed ${{ job.status }}.
