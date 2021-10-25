@@ -2,7 +2,7 @@ name: Environment staging
 
 on:
   push:
-    branches: [ master ]
+    branches: [ staging ]
 
 jobs:
   build:
@@ -30,7 +30,7 @@ jobs:
     - name: "Deploy"
       uses: serverless/github-action@master
       with:
-        args: deploy --stage production
+        args: deploy --stage staging
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_KEY }}
