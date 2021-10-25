@@ -57,12 +57,11 @@ module.exports.update = async (event) => {
         const id = event.pathParameters.id
         const modifiedData = JSON.parse(event.body)
         productService.update(id, modifiedData)
-    
         return {
-            statusCode: 200,
-            body: JSON.stringify(products[id]),
+            statusCode: 204
         };
     } catch(error) {
+        console.log(error)
         return handlerExceptions(error)
     }
    
