@@ -1,7 +1,7 @@
-name: Environment staging
+name: Staging
 
 on:
-  push:
+  pull_request:
     branches: [ staging ]
 
 jobs:
