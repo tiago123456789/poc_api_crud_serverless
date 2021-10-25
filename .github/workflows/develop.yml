@@ -1,4 +1,4 @@
-name: Environment staging
+name: Develop
 
 on:
   pull_request:
